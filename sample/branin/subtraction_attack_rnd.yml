@@ -1,0 +1,44 @@
+datasets:
+  TargetedAttack:
+    random_seed: 0
+    initial_design_numdata: 10
+    n_iter: 250
+    render_kwargs:
+      fps: 1
+      mode: live
+      figsize: [30, 5]
+    fn_cls: NoisyHpolibFunction
+    fn_params:
+      hpo_fn_ref: Branin
+      noise_mean: 0.0
+      noise_var: 0.0001
+    bo_model_params:
+      prefit_param:
+        sampler_cls: Grid
+        prefit_n: 100
+        fixed_kern: True
+      kernel_cls: Matern52
+      kernel_param:
+        ARD: False
+      model_params:
+        noise_var: 0.005
+        ARD: False
+      bo_params:
+        attack_init: True
+        normalize_Y: False
+        acquisition_type: LCB
+        acquisition_weight_fn: 'lambda t: 0.5 * np.log(2*t)'
+    region_cls: CubeRegion
+    region_param:
+      coordinate: [-1, 11]
+      length: 8
+      reward_fn: 'lambda x: 1. / (np.linalg.norm(coordinate - x) + 1.)' 
+algorithms:
+  SubtractionAttack:
+    tag: SubtractionAttackRnd
+    random_seed: 0
+    bump_fn: 'lambda x: (np.exp(-1/(1-np.linalg.norm(x)**2)+1) if np.linalg.norm(x) < 1 else 0.0)'
+    x_scale: [ 5, 5]
+    x_shift: [6.28318633, 2.375 ]
+    y_scale: 0.0
+    y_shift: 0.0

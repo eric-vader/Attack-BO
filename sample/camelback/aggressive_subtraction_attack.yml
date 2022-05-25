@@ -1,0 +1,39 @@
+datasets:
+  TargetedAttack:
+    random_seed: 0
+    initial_design_numdata: 10
+    n_iter: 250
+    render_kwargs:
+      fps: 1
+      mode: live
+      figsize: [30, 5]
+    fn_cls: NoisyHpolibFunction
+    fn_params:
+      hpo_fn_ref: Camelback
+      noise_mean: 0.0
+      noise_var: 0.0001
+    bo_model_params:
+      prefit_param:
+        sampler_cls: Grid
+        prefit_n: 100
+        fixed_kern: True
+      kernel_cls: Matern52
+      kernel_param:
+        ARD: False
+      model_params:
+        noise_var: 0.005
+        ARD: False
+      bo_params:
+        attack_init: True
+        normalize_Y: False
+        acquisition_type: LCB
+        acquisition_weight_fn: 'lambda t: 0.5 * np.log(2*t)'
+    region_cls: CubeRegion
+    region_param:
+      coordinate: [0.0898, -0.7126]
+      length: 1.4252
+      reward_fn: 'lambda x: 1. / (np.linalg.norm(coordinate - x) + 1.)'
+algorithms:
+  AggressiveSubtractionAttack:
+    random_seed: 0
+    delta: 0.0

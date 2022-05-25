@@ -1,0 +1,23 @@
+name: ML 
+
+conda_env: attack_bo.yml
+
+entry_points:
+  main:
+    parameters:
+      param_file: {type: path, default: sample/default.yml}
+    command: "python attack_bo/main.py {param_file}"
+  start:
+    parameters:
+      param_file: {type: str}
+    command: "LOGGING_TYPE=SERVER DAEMON=TRUE python attack_bo/main.py {param_file}"
+  test:
+    command: "mlflow run test"
+  doc:
+    command: "mlflow run doc"
+  profile:
+    parameters:
+      param_file: {type: path, default: sample/default.yml}
+      profile_file: {type: string, default: program.profile}
+    command: "python -m cProfile -o {profile_file} attack_bo/main.py {param_file}"
+

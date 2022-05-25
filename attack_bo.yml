@@ -1,0 +1,30 @@
+name: attack_bo
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pip=20.3.3
+  - conda-forge::cython
+  - conda-forge::numpy
+  - conda-forge::scipy
+  - conda-forge::libblas=*=*mkl
+  - conda-forge::boto3
+  - conda-forge::matplotlib
+  - conda-forge::jupyterlab
+  - conda-forge::GPy
+  - conda-forge::plotly
+  - conda-forge::imageio
+  - conda-forge::gym
+  - conda-forge::configspace
+  - conda-forge::pytest
+  - conda-forge::pybox2d
+  - conda-forge::scikit-optimize
+  - pip:
+    - mlflow==1.16.0
+    - pid==3.0.4
+    - pygame
+    - GPyOpt
+    - stable_baselines
+    - stable-baselines3
+    - git+https://github.com/eric-vader/HPOlib2.git#egg=hpolib2
+    - cleanpy

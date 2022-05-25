@@ -1,0 +1,31 @@
+Logger:
+    logging:
+        env_key: 'LOGGING_TYPE'
+        log_fmt: '%(asctime)s [%(levelname)-8s] [%(filename)s:%(lineno)d] %(message)s'
+        date_fmt: '%d/%m/%Y %H:%M:%S'
+        path: [ "{TEMP}", logging ]
+        exist_ok: False
+        file_logging_lvls: [INFO, ERROR]
+MlflowLogger:
+    mlflow_logging:
+        retry_count: 3
+        delay: 10
+        paths_logged: [ "{TEMP}" ]
+Directory:
+    data: 
+        path: [ "{TEMP}", data ]
+        exist_ok: False
+    run: 
+        path: [ "{TEMP}", run ]
+        exist_ok: False
+    cache:
+        path: ["~", cache]
+        exist_ok: True
+    job:
+        path: [ "~", mlflow-jobs ]
+        exist_ok: True
+Daemon:
+    daemon:
+        path: [ "/", dev, shm ]
+        exist_ok: True
+        env_key: 'DAEMON'
